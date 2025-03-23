@@ -11,5 +11,5 @@ Ein Schere-Stein-Papier-Spiel mit einer lernenden Künstlichen Intelligenz!
 1. **Python installieren** (falls noch nicht geschehen): [Python Download](https://www.python.org/downloads/)
 2. **Code herunterladen**:
    ```sh
-   git clone https://github.com/DEIN-BENUTZERNAME/rock-paper-scissors-ai.git
+   git clone https://github.com/SteveLp69/rock-paper-scissors-ai
    cd rock-paper-scissors-ai
