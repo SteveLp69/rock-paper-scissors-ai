@@ -55,11 +55,9 @@ def find_best_move(paterns: list, last_moves: list, lenge:int=5):
     last_5_moves = last_moves[-lenge:]
     patern_think = 0
     for index in range(len(paterns)):
-        #print(paterns[index])
         if paterns[index]["petern"] == last_5_moves:
             patern_think = index
     data = paterns[patern_think]
-    #print(data["petern"])
     positions = find_sublist_positions(last_moves, data["petern"])
     if len(positions) >= 2:
         potential_move = []
@@ -67,7 +65,6 @@ def find_best_move(paterns: list, last_moves: list, lenge:int=5):
             try:
                 potential_move.append(last_moves[position + lenge])
             except Exception as e:
-                #print(e)
                 pass
         try:
             move = potential_move[random.randint(0, len(potential_move) - 1)]
@@ -152,8 +149,6 @@ def S_S_P(last_moves: list = []) -> list:
     while True:
         games += 1
         move = ai_move(last_moves)
-        #number = random.randint(1, 3)
-        #print("KI:", points_ai, "Du:", points_you)
         number = input_int(f"0-{language[lang][8][4]} 1-{SSP[0]} 2-{SSP[1]} 3-{SSP[2]} ({language[lang][8][0]}: {points_ai}, {language[lang][8][1]}: {points_you}, {language[lang][8][2]}: {ties}, {language[lang][8][3]}: {games}): ", min=0)
         if number != None and number != 0:
             last_moves.append(number)
