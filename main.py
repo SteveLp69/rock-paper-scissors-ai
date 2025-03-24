@@ -152,7 +152,9 @@ def S_S_P(last_moves: list = []) -> list:
     while True:
         games += 1
         move = ai_move(last_moves)
-        number = input_int(f"1-{SSP[0]} 2-{SSP[1]} 3-{SSP[2]} ({language[lang][8][0]}: {points_ai}, {language[lang][8][1]}: {points_you}, {language[lang][8][2]}: {ties}, {language[lang][8][3]}: {games}): ", min=0)
+        #number = random.randint(1, 3)
+        #print("KI:", points_ai, "Du:", points_you)
+        number = input_int(f"0-{language[lang][8][4]} 1-{SSP[0]} 2-{SSP[1]} 3-{SSP[2]} ({language[lang][8][0]}: {points_ai}, {language[lang][8][1]}: {points_you}, {language[lang][8][2]}: {ties}, {language[lang][8][3]}: {games}): ", min=0)
         if number != None and number != 0:
             last_moves.append(number)
         if number == None or number == 0:
@@ -186,7 +188,8 @@ language = [
             "KI",
             "Du",
             "Unentschieden",
-            "Spiel"
+            "Spiel",
+            "Beenden"
         ],
         "Spiechere die KI daten auf den Profil.",
         "KI daten erfolgreich gespeichert.",
@@ -209,7 +212,8 @@ language = [
             "AI",
             "You",
             "draw",
-            "game"
+            "game",
+            "End"
         ],
         "Save the AI ​​data to the profile.",
         "AI data saved successfully.",
@@ -238,7 +242,6 @@ if os.path.exists(f"ai\\{profil}.json"):
     print(language[lang][5])
     with open(f"ai\\{profil}.json", "r", encoding="utf-8") as file:
         last_moves = json.load(file)
-        print(last_moves)
 else:
     print(language[lang][6])
 print("\n----------------------------\n")
