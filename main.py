@@ -68,7 +68,6 @@ def find_best_move(paterns: list, last_moves: list, lenge:int=5):
                 pass
         try:
             move = potential_move[random.randint(0, len(potential_move) - 1)]
-            #print(move)
             return move
         except ValueError:
             return None
@@ -141,11 +140,10 @@ def find_win(ai_move: int, move: int):
                 points_you += 1
                 return language[lang][11][1]
 
-def S_S_P(last_moves: list = []) -> list:
+def S_S_P(last_moves: list = [], games: int = 0) -> list:
     global points_you, points_ai, ties
     global lang, language
     SSP = language[lang][7]
-    games = 0
     while True:
         games += 1
         move = ai_move(last_moves)
@@ -153,7 +151,7 @@ def S_S_P(last_moves: list = []) -> list:
         if number != None and number != 0:
             last_moves.append(number)
         if number == None or number == 0:
-            return last_moves
+            return last_moves, games
         print()
         print(f"{language[lang][8][1]}:", SSP[number - 1])
         print(f"{language[lang][8][0]}:", SSP[move - 1])
@@ -164,6 +162,7 @@ def S_S_P(last_moves: list = []) -> list:
 points_you = 0
 points_ai = 0
 ties = 0
+games = 0
 last_moves = []
 
 lang = input_int("1-Deutsch, 2-English: ", max=2) - 1
@@ -192,7 +191,9 @@ language = [
             "Die KI hat gewonnen!",
             "Du hast gewonnen!"
         ],
-        "löschen"
+        "löschen",
+        "Starte neue Partie",
+        "Setze Partie fort"
     ],
     [
         "Enter your username: ",
@@ -216,7 +217,9 @@ language = [
             "The AI ​​has won!",
             "You won!"
         ],
-        "delet"
+        "delet",
+        "Start new game",
+        "Continue game"
     ]
 ]
 
@@ -229,21 +232,36 @@ while True:
             os.remove(f"ai\\{profile}.json")
             print(f"{profile}.json", language[lang][3], "\n")
         else:
-            print(language[lang][4])
+            print(language[lang][4], "\n")
     else:
         break
 
 if os.path.exists(f"ai\\{profil}.json"):
     print(language[lang][5])
     with open(f"ai\\{profil}.json", "r", encoding="utf-8") as file:
-        last_moves = json.load(file)
+        data = json.load(file)
+        last_moves = data["last moves"]
+        number = input_int(f"1-{language[lang][13]} 2-{language[lang][14]}: ", max=2)
+        if number == 2:
+            points_you = data["points_you"]
+            points_ai = data["points_ai"]
+            ties = data["ties"]
+            games = data["games"]
 else:
     print(language[lang][6])
 print("\n----------------------------\n")
 
-last_moves = S_S_P(last_moves)
+last_moves, games = S_S_P(last_moves, games)
+
+data = {
+    "points_you": points_you,
+    "points_ai": points_ai,
+    "ties": ties,
+    "games": games,
+    "last moves": last_moves
+}
 
 print(language[lang][9])
 with open(f"ai\\{profil}.json", "w", encoding="utf-8") as file:
-    json.dump(last_moves, file, indent=4)
+    json.dump(data, file, indent=4)
 print(language[lang][10],"\n")
