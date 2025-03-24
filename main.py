@@ -144,6 +144,7 @@ def S_S_P(last_moves: list = [], games: int = 0) -> list:
     global points_you, points_ai, ties
     global lang, language
     SSP = language[lang][7]
+    last_moves_ai = []
     while True:
         games += 1
         move = ai_move(last_moves)
@@ -165,7 +166,7 @@ ties = 0
 games = 0
 last_moves = []
 
-lang = input_int("1-Deutsch, 2-English: ", max=2) - 1
+lang = input_int("1-Deutsch 2-English: ", max=2) - 1
 print()
 
 language = [
